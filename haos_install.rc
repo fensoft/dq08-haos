@@ -1,0 +1,25 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          haos_install
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Run haos install script
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting haos_install"
+    /usr/local/bin/haos_install.sh
+    ;;
+  stop)
+    echo "Stopping haos_install (no action)"
+    ;;
+  *)
+    echo "Usage: /etc/init.d/haos_install {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
