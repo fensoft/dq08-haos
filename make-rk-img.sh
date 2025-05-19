@@ -2,7 +2,7 @@
 set -x
 set -e
 ME=`cd $(dirname $0); pwd`
-ARMBIAN=$1
+ARMBIAN=`ls rk3528-tvbox/armbian-build/output/images/*.img`
 LO=`losetup -f`
 losetup --partscan $LO $ARMBIAN
 dd bs=512 if=$LO of=uboot.img count=16384 skip=16384

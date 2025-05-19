@@ -1,0 +1,15 @@
+--- a/common/command.c	2025-05-19 13:54:06.615002536 +0200
++++ b/common/command.c	2025-05-19 14:09:45.231002984 +0200
+@@ -501,10 +501,10 @@
+ 	return result;
+ }
+ 
+-enum command_ret_t cmd_process(int flag, int argc, char * const argv[],
++int cmd_process(int flag, int argc, char * const argv[],
+ 			       int *repeatable, ulong *ticks)
+ {
+-	enum command_ret_t rc = CMD_RET_SUCCESS;
++	int rc = CMD_RET_SUCCESS;
+ 	cmd_tbl_t *cmdtp;
+ 
+ 	/* Look up command in command table */

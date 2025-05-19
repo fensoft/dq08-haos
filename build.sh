@@ -3,6 +3,7 @@ set -x
 set -e
 git clone https://github.com/ilyakurdyukov/rk3528-tvbox.git
 cd rk3528-tvbox
+cp ../uboot-new-gcc.patch armbian-patch/patch/u-boot/legacy/board_rk3528-tvbox
 git clone --depth=1 https://github.com/armbian/build armbian-build
 cp -R armbian-patch/* armbian-build/
 cd armbian-build
