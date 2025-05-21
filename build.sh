@@ -26,7 +26,6 @@ make NAME=rk3528-vontar-dq08 PRESET=LINUX
 cp rk3528-vontar-dq08.dtb /mnt/dtb/rockchip
 sed "s#fdtfile=.*#fdtfile=rockchip/rk3528-vontar-dq08.dtb#" -i /mnt/armbianEnv.txt
 losetup -D
-cat \$IMAGE | gzip > /build/\`basename \$IMAGE\`.gz
 EOF
 chmod a+x rk3528-tvbox/build.sh
 docker run -it -v /dev:/dev --privileged=true -v `pwd`/rk3528-tvbox:/build --rm armbian.local.only/armbian-build:initial /build/build.sh
