@@ -1,3 +1,5 @@
-dq08.img.dump
+*.img.dump
 *.img
 tmp
+rk3528-tvbox
+*.zip
