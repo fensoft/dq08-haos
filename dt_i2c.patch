@@ -1,0 +1,11 @@
+--- rk3528.dtsi	2025-05-23 00:28:27.851396083 +0200
++++ rk3528.dtsi2	2025-05-26 20:16:50.593004897 +0200
+@@ -1713,7 +1713,7 @@
+ 		pinctrl-0 = <&i2c1m0_xfer>;
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		status = "disabled";
++		status = "okay";
+ 	};
+ 
+ 	i2c2: i2c@ffa60000 {
