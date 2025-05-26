@@ -8,6 +8,7 @@ if [ ! -e rkdeveloptool ]; then
   autoreconf -i
   ./configure
   make
+  cd ..
 fi
 
 sudo ./rkdeveloptool/rkdeveloptool wl 16384 dq08_ha_supervised_3.0.0.img.dump/Image/uboot.img

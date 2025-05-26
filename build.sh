@@ -18,7 +18,7 @@ mkdir -p userpatches/extensions
 #   curl https://raw.githubusercontent.com/armbian/os/refs/heads/main/userpatches/extensions/$i.sh > userpatches/extensions/$i.sh
 # done
 # ENABLE_EXTENSIONS=ha
-./compile.sh build BOARD=rk3528-tvbox BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes EXPERT=yes KERNEL_CONFIGURE=no KERNEL_GIT=shallow RELEASE=bookworm
+./compile.sh build BOARD=rk3528-tvbox BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes EXPERT=yes KERNEL_CONFIGURE=no KERNEL_GIT=shallow RELEASE=bookworm PACKAGE_LIST_BOARD="i2c-tools gettext-base"
 cd ../..
 cat <<EOF > rk3528-tvbox/build.sh
 #!/bin/bash
