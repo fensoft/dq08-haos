@@ -1,12 +1,20 @@
 #!/bin/bash
 set -x
 set -e
-git clone https://github.com/ilyakurdyukov/rk3528-tvbox.git
+if [ ! -e rk3528-tvbox ]; then
+  git clone https://github.com/ilyakurdyukov/rk3528-tvbox.git
+fi
 cd rk3528-tvbox
 cp ../uboot-new-gcc.patch armbian-patch/patch/u-boot/legacy/board_rk3528-tvbox
-git clone --depth=1 https://github.com/armbian/build armbian-build
+if [ ! -e armbian-build ]; then
+  git clone --depth=1 https://github.com/armbian/build armbian-build
+fi
 cp -R armbian-patch/* armbian-build/
 cd armbian-build
+mkdir -p userpatches/extensions
+# for i in ha docker-ce; do
+#   curl https://raw.githubusercontent.com/armbian/os/refs/heads/main/userpatches/extensions/$i.sh > userpatches/extensions/$i.sh
+# done
 ./compile.sh build BOARD=rk3528-tvbox BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes EXPERT=yes KERNEL_CONFIGURE=no KERNEL_GIT=shallow RELEASE=bookworm
 cd ../..
 cat <<EOF > rk3528-tvbox/build.sh

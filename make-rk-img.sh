@@ -30,21 +30,20 @@ sudo ln -s /etc/init.d/haos_install tmp/etc/rc5.d/S99haos_install
 sudo umount tmp
 sudo losetup -D
 sync
-rm -rf /tmp/imgrepacker
-mkdir /tmp/imgrepacker
-7z e $ME/tools/imgRePacker*.zip -o/tmp/imgrepacker
-chmod a+x /tmp/imgrepacker/imgrepackerrk
+IMGREPACKER=/tmp/imgrepacker
+rm -rf $IMGREPACKER
+mkdir $IMGREPACKER
+7z e $ME/tools/imgRePacker*.zip -o$IMGREPACKER
+chmod a+x $IMGREPACKER/imgrepackerrk
 if [ `uname -m` == "aarch64" ]; then
   if [ ! `which FEXInterpreter` ]; then
     curl --silent https://raw.githubusercontent.com/FEX-Emu/FEX/main/Scripts/InstallFEX.py --output /tmp/InstallFEX.py
+    sed -i 's#\["FEXRootFSFetcher"\]#\["FEXRootFSFetcher","-y","-a"\]#' /tmp/InstallFEX.py
     python3 /tmp/InstallFEX.py
     rm /tmp/InstallFEX.py
-    FEXRootFSFetcher -y -a
   fi
-  FEXInterpreter /tmp/imgrepacker/imgrepackerrk ${OUT}.dump
+  FEXInterpreter $IMGREPACKER/imgrepackerrk ${OUT}.dump
 else
-  /tmp/imgrepacker/imgrepackerrk ${OUT}.dump
-  # wine /tmp/imgrepacker/imgRePackerRK.exe ${OUT}.dump
+  $IMGREPACKER/imgrepackerrk ${OUT}.dump || wine $IMGREPACKER/imgRePackerRK.exe ${OUT}.dump
 fi
-rm -rf ${OUT}.dump
 zip ${OUT}.zip ${OUT}
