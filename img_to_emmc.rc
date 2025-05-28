@@ -1,23 +1,23 @@
 #!/bin/bash
 ### BEGIN INIT INFO
-# Provides:          haos_install
+# Provides:          img_to_emmc
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Run haos install script
+# Short-Description: Run i2c screen daemon
 ### END INIT INFO
 
-DAEMON_PATH="/usr/local/bin/haos_install.sh"
-PIDFILE="/var/run/haos_install.pid"
-LOGFILE="/var/log/haos_install.log"
+DAEMON_PATH="/usr/local/bin/img_to_emmc.sh"
+PIDFILE="/var/run/img_to_emmc.pid"
+LOGFILE="/var/log/img_to_emmc.log"
 
 start() {
-  echo "Starting haos_install"
+  echo "Starting img_to_emmc"
   if [ -f "$PIDFILE" ]; then
     PID=$(cat "$PIDFILE")
     if ps -p "$PID" > /dev/null 2>&1; then
-      echo "haos_install is already running (PID $PID)"
+      echo "Daemon is already running (PID $PID)"
       exit 0
     else
       echo "Stale PID file found. Removing."
@@ -27,21 +27,21 @@ start() {
 
   nohup bash "$DAEMON_PATH" >> "$LOGFILE" 2>&1 &
   echo $! > "$PIDFILE"
-  echo "haos_install started with PID $(cat $PIDFILE)"
+  echo "Daemon started with PID $(cat $PIDFILE)"
 }
 
 stop() {
-  echo "Stopping haos_install"
+  echo "Stopping img_to_emmc"
   if [ -f "$PIDFILE" ]; then
     PID=$(cat "$PIDFILE")
     if ps -p "$PID" > /dev/null 2>&1; then
-      kill "$PID" && echo "haos_install stopped"
+      kill "$PID" && echo "Daemon stopped"
     else
       echo "PID file exists, but process is not running"
     fi
     rm -f "$PIDFILE"
   else
-    echo "haos_install is not running"
+    echo "Daemon is not running"
   fi
 }
 
@@ -58,7 +58,7 @@ case "$1" in
     start
     ;;
   *)
-    echo "Usage: /etc/init.d/haos_install {start|stop|restart}"
+    echo "Usage: /etc/init.d/img_to_emmc {start|stop|restart}"
     exit 1
     ;;
 esac

@@ -13,12 +13,20 @@ if [ ! -e armbian-build ]; then
 fi
 cp -R armbian-patch/* armbian-build/
 cd armbian-build
+cat <<EOF >> config/kernel/linux-rk3528-tvbox-legacy.config
+CONFIG_USB_SERIAL=y
+CONFIG_USB_SERIAL_SIMPLE=y
+CONFIG_USB_SERIAL_CH341=y
+CONFIG_USB_SERIAL_CP210X=y
+CONFIG_USB_SERIAL_FTDI_SIO=y
+CONFIG_USB_SERIAL_PL2303=y
+EOF
 mkdir -p userpatches/extensions
 # for i in ha docker-ce; do
 #   curl https://raw.githubusercontent.com/armbian/os/refs/heads/main/userpatches/extensions/$i.sh > userpatches/extensions/$i.sh
 # done
 # ENABLE_EXTENSIONS=ha
-./compile.sh build BOARD=rk3528-tvbox BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes EXPERT=yes KERNEL_CONFIGURE=no KERNEL_GIT=shallow RELEASE=bookworm PACKAGE_LIST_BOARD="i2c-tools gettext-base"
+./compile.sh build BOARD=rk3528-tvbox BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes EXPERT=yes KERNEL_CONFIGURE=no KERNEL_GIT=shallow RELEASE=bookworm PACKAGE_LIST_BOARD="i2c-tools gettext-base unzip gdisk"
 cd ../..
 cat <<EOF > rk3528-tvbox/build.sh
 #!/bin/bash
@@ -37,6 +45,7 @@ make NAME=rk3528-vontar-dq08 PRESET=LINUX
 cp rk3528-vontar-dq08.dtb /mnt/dtb/rockchip
 sed "s#fdtfile=.*#fdtfile=rockchip/rk3528-vontar-dq08.dtb#" -i /mnt/armbianEnv.txt
 losetup -D
+mv /build/armbian-build/output/images/*.img /build/dq08.img
 EOF
 chmod a+x rk3528-tvbox/build.sh
 docker run -it -v /dev:/dev --privileged=true -v `pwd`/rk3528-tvbox:/build --rm armbian.local.only/armbian-build:initial /build/build.sh
