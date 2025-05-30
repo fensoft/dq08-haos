@@ -49,3 +49,22 @@ mv /build/armbian-build/output/images/*.img /build/dq08.img
 EOF
 chmod a+x rk3528-tvbox/build.sh
 docker run -it -v /dev:/dev --privileged=true -v `pwd`/rk3528-tvbox:/build --rm armbian.local.only/armbian-build:initial /build/build.sh
+if [ ! -e u-boot ]; then
+  git clone https://github.com/u-boot/u-boot
+  cd u-boot
+  git checkout 93905ab6e7564089f5d7b703b660464d675e5ab0
+  git clone https://github.com/rockchip-linux/rkbin.git
+  cd rkbin
+  git checkout f43a462e7a1429a9d407ae52b4745033034a6cf9
+  cd ../..
+fi
+cd u-boot
+git stash -u
+patch -p1 < ../u-boot-2025-i2c.patch
+export ROCKCHIP_TPL=rkbin/bin/rk35/rk3528_ddr_1056MHz_4BIT_PCB_v1.10.bin
+export BL31=rkbin/bin/rk35/rk3528_bl31_v1.18.elf
+make generic-rk3528_defconfig
+patch -p1 < ../u-boot-2025-config.patch
+make -j$(nproc)
+dd if=idbloader.img of=../rk3528-tvbox/dq08.img conv=notrunc seek=64 bs=512
+dd if=u-boot.itb of=../rk3528-tvbox/dq08.img conv=notrunc bs=512 seek=16384

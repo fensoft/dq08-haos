@@ -1,5 +1,5 @@
-VERSION := 3.0.0
-RECOVERY_VERSION := 1.0.0
+VERSION := 3.0.0_r2
+RECOVERY_VERSION := 1.0.1
 
 clean:
 	rm -f *.img *.zip
