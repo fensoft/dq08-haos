@@ -30,6 +30,13 @@ disp() {
   disp "${1:1}"
 }
 
+if [ ! -e /tmp/screen ]; then
+  cat <<EOF > /tmp/screen
+   IP=\${IP}
+   RES=\${CPU} ${RAM}
+EOF
+fi
+
 while `true`; do
   IFS=$'\n'
   export IP=`hostname -I 2>&1 | sed "s# .*##g"`

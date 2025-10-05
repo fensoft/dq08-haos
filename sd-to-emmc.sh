@@ -29,6 +29,11 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk $TARGET
   14
   d # delete
   2
+  d #delete
+  n # new partition
+  1
+  8192
+  16383
   n # new partition
   2
   16384
@@ -40,11 +45,7 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk $TARGET
   n # new partition
   4
 
-  61071295
-  n # new partition
-  5
-  61071296
-  61071325
+
   x # expert mode
   n # set name
   2
@@ -70,13 +71,6 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | gdisk $TARGET
   Y
 EOF
 
-# ARMBIAN=Armbian-unofficial_25.05.0-trunk_Rk3528-tvbox_bookworm_legacy_5.10.160_minimal.img
-# LO=`losetup -f`
-# losetup --partscan $LO $ARMBIAN
-# dd bs=512 if=$LO of=${TARGET}p2 count=16384 skip=16384
-# dd if=${LO}p1 of=${TARGET}p3 bs=1M status=progress
-# dd if=${LO}p2 of=${TARGET}p4 bs=1M status=progress
-
 SOURCE=/dev/mmcblk1
 dd bs=512 if=$SOURCE of=${TARGET}p2 count=16384 skip=16384
 umount /boot || true
@@ -94,8 +88,3 @@ umount /mnt
 mount ${TARGET}p3 /mnt
 sed -i "s#rootdev=UUID=.*#rootdev=UUID=$UUID#" /mnt/armbianEnv.txt
 umount /mnt
-# losetup -D
-# LO=`losetup -f`
-# losetup $LO --partscan $DEBIAN
-# dd if=${LO}p2 of=${TARGET}p4 bs=1M status=progress
-# losetup -D

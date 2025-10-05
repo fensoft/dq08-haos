@@ -5,3 +5,4 @@ rk3528-tvbox
 *.zip
 *.swp
 old/
+*.img.gz
