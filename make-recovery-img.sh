@@ -27,7 +27,7 @@ sudo mount ${LO}p3 tmp
 sudo umount tmp
 sudo mount ${LO}p2 tmp
 sudo rm tmp/root/.not_logged_in_yet
-sudo cp i2c_screen_daemon.sh tmp/usr/local/bin/
+sudo cp i2c_screen_daemon.py tmp/usr/local/bin/
 sudo cp i2c_screen_daemon.rc tmp/etc/init.d/i2c_screen_daemon
 sudo chmod a+x tmp/etc/init.d/i2c_screen_daemon
 sudo ln -s /etc/init.d/i2c_screen_daemon tmp/etc/rc2.d/S99i2c_screen_daemon

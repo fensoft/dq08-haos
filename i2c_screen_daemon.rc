@@ -8,7 +8,7 @@
 # Short-Description: Run i2c screen daemon
 ### END INIT INFO
 
-DAEMON_PATH="/usr/local/bin/i2c_screen_daemon.sh"
+DAEMON_PATH="/usr/local/bin/i2c_screen_daemon.py"
 PIDFILE="/var/run/i2c_screen_daemon.pid"
 LOGFILE="/var/log/i2c_screen_daemon.log"
 
@@ -25,7 +25,7 @@ start() {
     fi
   fi
 
-  nohup bash "$DAEMON_PATH" >> "$LOGFILE" 2>&1 &
+  nohup "$DAEMON_PATH" >> "$LOGFILE" 2>&1 &
   echo $! > "$PIDFILE"
   echo "Daemon started with PID $(cat $PIDFILE)"
 }
