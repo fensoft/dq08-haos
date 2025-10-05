@@ -4,6 +4,7 @@ Ready to flash home assistant supervised img file for dq08
 # Build
 
 ```
+# apt install build-essentials bison flex swig python3-dev gnutls-dev python3-pyelftools
 # make zip
 ```
 
