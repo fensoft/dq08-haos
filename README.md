@@ -33,6 +33,9 @@ On windows 64 bit
 
 # Flash with a microsd
 
-- unzip `dq08_recovery_<version>.zip` recovery image and flash with [this](https://hddguru.com/software/HDD-Raw-Copy-Tool/)
-- copy zipped sd image to the `500mb fat32` partition on the microsd card
-- put in `dq08`, power on and wait for `finished` message on the display
+- download and unzip [recovery](https://github.com/fensoft/dq08-haos/releases/download/3.0.0_r2/dq08_recovery_1.0.1.zip)
+- flash it with [Raspberry Pi Imager](https://www.raspberrypi.com/software/) (in OS choose the previous unzipped as "custom image")
+- unplug/replug sd card and put zipped [sd image](https://github.com/fensoft/dq08-haos/releases/download/3.0.0_r2/dq08_ha_supervised_3.0.0_r2.sd.zip) in the 500mb disk
+- put sd in DQ08 and plug power. screen will display several steps. wait for "finished"
+- unplug sd card, connect ethernet + DC and wait approx 12 minutes: system will install requirements (3min) then reboot and install HA (5 min) and setup HA (5 min)
+- ip address will be shown on the display, connect to http://ip-address:8123 and setup HA
