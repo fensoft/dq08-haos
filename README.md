@@ -39,3 +39,8 @@ On windows 64 bit
 - put sd in DQ08 and plug power. screen will display several steps. wait for "finished"
 - unplug sd card, connect ethernet + DC and wait approx 12 minutes: system will install requirements (3min) then reboot and install HA (5 min) and setup HA (5 min)
 - ip address will be shown on the display, connect to http://ip-address:8123 and setup HA
+
+# Use microsd slot for HA backups
+- connect in ssh to the box (user=root, pass=1234)
+- `curl https://raw.githubusercontent.com/fensoft/dq08-haos/refs/heads/master/create_sdcard_hassio_backups.sh | bash -`
+- plug sd card
