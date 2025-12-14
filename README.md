@@ -26,6 +26,7 @@ On windows 64 bit
 - keep pushed the reset button in the AV connector
 - plug a male-male usb cable to the black port (not the blue one)
 - wait 2 seconds (windows usb sound)
+- if needed, try again with an sdcard flashed with [Raspberry Pi Imager](https://www.raspberrypi.com/software/) (in OS choose the previous unzipped as "custom image") using [bootloader.img](https://github.com/fensoft/dq08-haos/raw/refs/heads/master/bootloader.img)
 - release everything and wait for the green cell (2 minutes)
 - unplug everything, connect ethernet + DC and wait approx 12 minutes: system will install requirements (3min) then reboot and install HA (5 min) and setup HA (5 min)
 - scan your network with [this](https://www.nirsoft.net/utils/wireless_network_watcher.html)
